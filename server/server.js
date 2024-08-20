@@ -16,7 +16,7 @@ app.use("/user" , userRouter)
 const port = process.env.PORT
 
 app.get("/" , (req,res)=>{
-    res.send("welcome to the homepage of the kanban app")
+    res.send(`<h1>WELCOME TO THE KANBAN BOARD APP</h1>`)
 })
 
 app.listen(port , ()=>{
