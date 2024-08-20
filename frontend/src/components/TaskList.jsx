@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import '../style/TaskList.css'; // Import the CSS file
+import '../style/TaskList.css'; 
 import { useNavigate } from 'react-router-dom';
 
 const TaskList = () => {
@@ -33,7 +33,7 @@ const TaskList = () => {
             setError(null);
 
             try {
-                const response = await fetch(`https://mern-kanban-app.onrender.com/tasks?page=${currentPage}&limit=9`, {
+                const response = await fetch(`https://kanban-board-full-stack.onrender.com/task/tasks?page=${currentPage}&limit=9`, {
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${token}`
@@ -45,9 +45,10 @@ const TaskList = () => {
                     throw new Error(`Login Again! status: ${response.statusText}`);
                 }
 
+                console.log(data.tasks)
                 const formattedTasks = {
-                    todo: data.tasks.filter(task => task.status === 'to-do'),
-                    inProgress: data.tasks.filter(task => task.status === 'in-progress'),
+                    todo: data.tasks.filter(task => task.status === 'todo'),
+                    inProgress: data.tasks.filter(task => task.status === 'inProgress'),
                     done: data.tasks.filter(task => task.status === 'done'),
                 };
 
@@ -126,7 +127,7 @@ const TaskList = () => {
             });
 
             try {
-                const response = await fetch(`https://mern-kanban-app.onrender.com/task/update/${movedItem._id}`, {
+                const response = await fetch(`https://kanban-board-full-stack.onrender.com/task/update/${movedItem._id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
@@ -150,7 +151,7 @@ const TaskList = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`https://mern-kanban-app.onrender.com/task/delete/${id}`, {
+            const response = await fetch(`https://kanban-board-full-stack.onrender.com/task/delete/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -164,7 +165,6 @@ const TaskList = () => {
 
             alert("Task deleted successfully");
 
-            // Remove the deleted task from the UI
             setColumns((prevColumns) => {
                 const updatedColumns = { ...prevColumns };
                 Object.keys(updatedColumns).forEach((key) => {
@@ -180,7 +180,7 @@ const TaskList = () => {
 
     const handleUpdateSave = async () => {
         try {
-            const response = await fetch(`https://mern-kanban-app.onrender.com/task/update/${updateId}`, {
+            const response = await fetch(`https://kanban-board-full-stack.onrender.com/task/update/${updateId}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -192,7 +192,7 @@ const TaskList = () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
+            
             // Update the task in the UI
             setColumns((prevColumns) => {
                 const updatedColumns = { ...prevColumns };

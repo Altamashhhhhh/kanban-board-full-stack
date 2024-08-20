@@ -13,7 +13,7 @@ const CreateTask = () => {
         title: "",
         description: "",
         dueDate: "",
-        status: "to-do"
+        status: "todo"
     });
 
     const handleFormData = (event) => {
@@ -30,7 +30,7 @@ const CreateTask = () => {
         setSuccess(null);
 
         try {
-            const response = await fetch("https://mern-kanban-app.onrender.com/task/create", {
+            const response = await fetch("https://kanban-board-full-stack.onrender.com/task/create", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -49,7 +49,7 @@ const CreateTask = () => {
                 title: "",
                 description: "",
                 dueDate: "",
-                status: "to-do"
+                status: "todo"
             });
 
         } catch (error) {
@@ -104,8 +104,8 @@ const CreateTask = () => {
                     value={formData.status}
                     onChange={handleFormData}
                 >
-                    <option value="to-do">TO-DO</option>
-                    <option value="in-progress">IN PROGRESS</option>
+                    <option value="todo">TO-DO</option>
+                    <option value="inProgress">IN PROGRESS</option>
                     <option value="done">DONE</option>
                 </select>
 

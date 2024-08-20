@@ -26,7 +26,7 @@ const Login = () => {
     setError(null);
     setSuccess(null);
     try {
-      const response = await fetch("https://mern-kanban-app.onrender.com/user/login", {
+      const response = await fetch("https://kanban-board-full-stack.onrender.com/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -44,7 +44,9 @@ const Login = () => {
         username: "",
         password: ""
       });
-        navigate("/tasks");
+        setTimeout(() => {
+          navigate("/tasks");
+        }, 2000);
       
     } catch (error) {
       setError(error.message || "An unexpected error occurred.");

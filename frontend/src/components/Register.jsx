@@ -21,7 +21,7 @@ const Register = () => {
         setSuccess(null);
         
         try {
-            const response = await fetch("https://mern-kanban-app.onrender.com/register", {
+            const response = await fetch("https://kanban-board-full-stack.onrender.com/user/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
