@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import '../style/TaskList.css'; 
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react';
 
 const TaskList = () => {
+    const toast = useToast();
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
     const [error, setError] = useState(null);
@@ -42,10 +44,12 @@ const TaskList = () => {
                 const data = await response.json();
 
                 if (!response.ok) {
+                    toast({
+                        title: 'Error in fetching data',
+                        status :"error"
+                    })
                     throw new Error(`Login Again! status: ${response.statusText}`);
                 }
-
-                console.log(data.tasks)
                 const formattedTasks = {
                     todo: data.tasks.filter(task => task.status === 'todo'),
                     inProgress: data.tasks.filter(task => task.status === 'inProgress'),
@@ -137,6 +141,13 @@ const TaskList = () => {
                 });
 
                 if (!response.ok) {
+                    toast({
+                        title : "Error while upading ",
+                        description  : response.statusText, 
+                        status : "error" , 
+                        duration : 3000 ,
+                        isClosable : true 
+                    })
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
@@ -160,10 +171,22 @@ const TaskList = () => {
             });
 
             if (!response.ok) {
+                toast({
+                    title : "Error in  Deleting Task", 
+                    status : "error" , 
+                    duration : 3000 ,
+                    isClosable : true  
+                })
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
-            alert("Task deleted successfully");
+            if(response.ok){
+                toast({
+                    title : "Task Deleted Successfully", 
+                    status : "success" , 
+                    duration : 3000 ,
+                    isClosable : true  
+                })
+            }
 
             setColumns((prevColumns) => {
                 const updatedColumns = { ...prevColumns };
@@ -174,7 +197,13 @@ const TaskList = () => {
             });
 
         } catch (error) {
-            alert('Error deleting task:', error);
+            toast({
+                title : error, 
+                status : "error" , 
+                duration : 3000 ,
+                isClosable : true  
+            })
+            
         }
     };
 
@@ -190,6 +219,12 @@ const TaskList = () => {
             });
 
             if (!response.ok) {
+                toast({
+                    title : response.statusText, 
+                    status : "error" , 
+                    duration : 3000 ,
+                    isClosable : true  
+                })
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             
@@ -204,12 +239,23 @@ const TaskList = () => {
                 return updatedColumns;
             });
 
-            alert('Task updated successfully');
+            toast({
+                title : "Task Updated Successfully", 
+                status : "success" , 
+                duration : 3000 ,
+                isClosable : true  
+            })
             setUpdateId(null);
             setUpdateText({ title: '', description: '' });
 
         } catch (error) {
-            alert('Error updating task:', error);
+            toast({
+                title : error, 
+                status : "error" , 
+                duration : 3000 ,
+                isClosable : true  
+            })
+          
         }
     };
 
@@ -220,7 +266,7 @@ const TaskList = () => {
 
     return (
         <div className="task-list-container">
-            <h1 style={{ textAlign: "center" }}>KANBAN BOARD</h1>
+            <h1 style={{ textAlign: "center",  color : "black"}}>KANBAN BOARD</h1>
 
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <div className="task-container">
@@ -287,9 +333,9 @@ const TaskList = () => {
             </DragDropContext>
 
             <div className="pagination-controls">
-                <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
+                <button className='previous-button' onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
 
-                <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                <button className='next-button' onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
             </div>
 
             <div className="pagination-controls2">

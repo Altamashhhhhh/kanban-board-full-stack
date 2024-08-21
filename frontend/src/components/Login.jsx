@@ -57,6 +57,7 @@ const Login = () => {
 
   return (
     <div className="container">
+      <h1>LOGIN</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
         <input
@@ -77,11 +78,10 @@ const Login = () => {
           onChange={handleFormData}
           required
         />
-
-        <button type="submit" disabled={loading}>
+        <button className='login-button' type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
-        <button type="button" onClick={() => navigate("/register")}>
+        <button className='register-button' type="button" onClick={() => navigate("/register")}>
           Register Here
         </button>
         {success && <p className="success-message">{success}</p>}

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import '../style/CreateTask.css'; 
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react';
 
 const CreateTask = () => {
+    const toast = useToast();
+    const today = new Date().toISOString().split("T")[0];
     const token = localStorage.getItem("token");
     const navigate = useNavigate()
     const [error, setError] = useState(null);
@@ -12,7 +15,7 @@ const CreateTask = () => {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
-        dueDate: "",
+        dueDate: today,
         status: "todo"
     });
 
@@ -42,9 +45,16 @@ const CreateTask = () => {
             if (!response.ok) {
                 throw new Error(await response.text()); 
             }
+            if(response.ok){
+                toast({
+                    title : "Task Created Successfully" , 
+                    status : "success" , 
+                    isClosable : true ,
+                    duration : 3000
+                })
+                setSuccess("Task created successfully");
+            }
 
-
-            setSuccess("Task created successfully");
             setFormData({
                 title: "",
                 description: "",
@@ -53,6 +63,12 @@ const CreateTask = () => {
             });
 
         } catch (error) {
+            toast({
+                status:"error",
+                isClosable : true , 
+                duration : 7000 ,
+                title : "Error Creating Task" ,
+            })
             setError(error.message || "An error occurred while creating the task.");
         } finally {
             setLoading(false);

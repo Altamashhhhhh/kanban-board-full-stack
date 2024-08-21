@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../style/Register.css";
+import { useToast } from '@chakra-ui/react';
 
 const Register = () => {
     const navigate = useNavigate();
+    const toast = useToast()
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
@@ -32,9 +34,23 @@ const Register = () => {
             const data = await response.json();
 
             if (!response.ok) {
+                toast({
+                    status:"error",
+                    title : "Error while registering new user ",
+                    isClosable : true , 
+                    duration: 3000,
+                })
                 throw new Error(data.message);
             }
-            setSuccess("User Registration Successful");
+            if(response.ok){
+                toast({
+                    title:"User Registration Successful" , 
+                    isClosable : true , 
+                    duration : 3000 , 
+                    status : "success"
+                })
+                setSuccess("User Registration Successful");
+            }
             setFormData({
                 username: "",
                 role: "user",
@@ -98,7 +114,7 @@ const Register = () => {
 
                 <button 
                     type="submit" 
-                    className="button" 
+                    className="register-button" 
                     disabled={loading}
                 >
                     {loading ? "Registering..." : "Register Now"}

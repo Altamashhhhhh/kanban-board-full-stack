@@ -1,8 +1,9 @@
-
 * {
   box-sizing: border-box;
 }
-
+button {
+  border-radius: 4px;
+}
 .task-list-container {
   padding: 20px;
   background-color: #f0f0f0;
@@ -84,7 +85,7 @@ p {
   color: white;
   border: none;
   padding: 10px 15px;
-  border-radius: 4px;
+
   cursor: pointer;
 }
 
@@ -104,59 +105,67 @@ p {
 .pagination-controls button,
 .pagination-controls2 button {
   width: 34%;
-
 }
 
-
-.pagination-controls button {
+.next-button,
+.previous-button {
   width: 34%;
-  background-color: #0c3159;
-  }
-  .pagination-controls button:hover{
-
   background-color: #1a61ac;
-  }
+  color: white;
+}
+.next-button:hover,
+.previous-button:hover {
+  background-color: #0c3159;
+}
 
 .create-button {
   background-color: rgb(5, 51, 5);
-  }
-  .create-button:hover {
+}
+.create-button:hover {
   background-color: rgb(1, 106, 1);
-  }
+}
 
 .error-message {
   color: red;
   text-align: center;
 }
 
+.logout-button {
+  background-color: #8b0000;
+  color: white;
+}
 .logout-button:hover {
   background-color: rgb(64, 1, 1);
-  }
-  .logout-button {
-  width: 34%;
-  }
-  
-  
+}
 
-  .save-button,
-  .cancel-button {
+.logout-button {
+  width: 34%;
+}
+
+.save-button,
+.cancel-button {
   padding: 10px 15px;
   margin: 0;
-  }
-  .cancel-button:hover{
-    background-color: rgb(13, 13, 26);
-  }
-  
-  
+}
+.cancel-button {
+  background-color: black;
 
-.update-button , .save-button {
+  color: white;
+}
+.cancel-button:hover {
+  background-color: rgb(55, 55, 61);
+}
+
+.update-button,
+.save-button {
   background-color: #006d3e;
   color: white;
-  }
-  
-  .update-button:hover , .save-button:hover {
+}
+
+.update-button:hover,
+.save-button:hover {
   background-color: #1d473a;
-  }
+}
 
 textarea {
   width: 100%;
@@ -193,7 +202,11 @@ textarea {
     width: 100%;
   }
 }
-
+.previous-button,
+.next-button,
+.logout-button {
+  padding: 15px 16px;
+}
 @media (max-width: 480px) {
   .task-title {
     font-size: 1.1rem;
@@ -207,4 +220,3 @@ textarea {
     padding: 8px;
   }
 }
-
