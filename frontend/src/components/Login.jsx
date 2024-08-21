@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../style/Login.css';
+import { useToast } from '@chakra-ui/react';
 
 const Login = () => {
+  const toast = useToast()
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -35,9 +37,22 @@ const Login = () => {
       });
       const data = await response.json();
       if (!response.ok) {
+        toast({
+          title : data.message ,
+          status:"error" , 
+          duration : 3000 , 
+          isClosable : true 
+        })
         throw new Error(data.message || "Login failed, please try again.");
       }
-      setSuccess("Login Successful!");
+      if(response.ok){
+        toast({
+          title : "Login Successfull" , 
+          duration : 3000 , 
+          status : "success"
+        })
+        setSuccess("Login Successful!");
+      }
       localStorage.setItem("token", data.token);
 
       setFormData({
