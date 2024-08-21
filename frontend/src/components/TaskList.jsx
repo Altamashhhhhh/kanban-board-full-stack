@@ -61,7 +61,6 @@ const TaskList = () => {
                     inProgress: { name: 'In-Progress', items: formattedTasks.inProgress },
                     done: { name: 'Done', items: formattedTasks.done },
                 });
-
                 setTotalPages(data.totalPages);
 
             } catch (error) {

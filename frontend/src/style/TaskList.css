@@ -172,6 +172,13 @@ textarea {
   padding: 12px;
 }
 
+button:disabled {
+  background-color: #1a3758;           
+  cursor: not-allowed;       
+  color: grey;
+  border: 1px solid #999999; 
+}
+
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   .task-container {
@@ -220,3 +227,6 @@ textarea {
     padding: 8px;
   }
 }
+
+
+
