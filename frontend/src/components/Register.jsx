@@ -21,6 +21,40 @@ const Register = () => {
         setLoading(true);
         setError(null);
         setSuccess(null);
+
+        if (formData.username.length < 6) {
+            toast({
+                title: "Username must be at least 6 characters long.",
+                status: "error",
+                isClosable: true,
+                duration: 3000,
+            });
+            setLoading(false);
+            return;
+        }
+
+        if (formData.password.length < 8) {
+            toast({
+                title: "Password must be at least 8 characters long.",
+                status: "error",
+                isClosable: true,
+                duration: 3000,
+            });
+            setLoading(false);
+            return;
+        }
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+        if (!passwordRegex.test(formData.password)) {
+            toast({
+                title: "Password must be at least 8 characters long, include one uppercase letter and one special character.",
+                status: "error",
+                isClosable: true,
+                duration: 3000,
+            });
+            setLoading(false);
+            return;
+        }
         
         try {
             const response = await fetch("https://kanban-board-full-stack.onrender.com/user/register", {

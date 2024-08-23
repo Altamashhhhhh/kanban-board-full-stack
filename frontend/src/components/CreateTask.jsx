@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../style/CreateTask.css'; 
+import '../style/CreateTask.css';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
 
@@ -43,14 +43,14 @@ const CreateTask = () => {
             });
 
             if (!response.ok) {
-                throw new Error(await response.text()); 
+                throw new Error(await response.text());
             }
-            if(response.ok){
+            if (response.ok) {
                 toast({
-                    title : "Task Created Successfully" , 
-                    status : "success" , 
-                    isClosable : true ,
-                    duration : 3000
+                    title: "Task Created Successfully",
+                    status: "success",
+                    isClosable: true,
+                    duration: 3000
                 })
                 setSuccess("Task created successfully");
             }
@@ -58,16 +58,16 @@ const CreateTask = () => {
             setFormData({
                 title: "",
                 description: "",
-                dueDate: "",
+                dueDate: today,
                 status: "todo"
             });
 
         } catch (error) {
             toast({
-                status:"error",
-                isClosable : true , 
-                duration : 7000 ,
-                title : "Error Creating Task" ,
+                status: "error",
+                isClosable: true,
+                duration: 7000,
+                title: "Error Creating Task",
             })
             setError(error.message || "An error occurred while creating the task.");
         } finally {
@@ -77,7 +77,7 @@ const CreateTask = () => {
 
     return (
         <div className="create-container">
-            <h1 style={{color : "WHITE"}}>ADD TASK</h1>
+            <h1 style={{ color: "WHITE" }}>ADD TASK</h1>
             <form className="create-form" onSubmit={handleSubmit}>
                 <label htmlFor="title" className="create-label">Title:</label>
                 <input
@@ -129,7 +129,7 @@ const CreateTask = () => {
                     {loading ? "Creating Task..." : "Create Task"}
                 </button>
 
-                <button onClick={()=>navigate("/tasks")}  className="create-button">
+                <button onClick={() => navigate("/tasks")} className="create-button">
                     All Tasks
                 </button>
 

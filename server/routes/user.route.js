@@ -19,6 +19,14 @@ userRouter.get("/users" , auth ,  roleAuth(["admin"]) , async (req, res)=>{
 userRouter.post("/register", async (req, res) => {
   try {
     const { username, password, role } = req.body;
+    
+    if(role === "admin"){
+      const adminExist = await userModel.find({role : "admin"})
+      if(adminExist){
+        return res.status(400).json({message: "Admin already exist"})
+      }
+    }
+    
     const hashed = await bcrypt.hash(password, 5);
     const user = new userModel({ username, password: hashed, role });
     await user.save();
