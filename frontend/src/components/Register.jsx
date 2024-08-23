@@ -80,7 +80,7 @@ const Register = () => {
                 toast({
                     title:"User Registration Successful" , 
                     isClosable : true , 
-                    duration : 3000 , 
+                    duration : 2000 , 
                     status : "success"
                 })
                 setSuccess("User Registration Successful");
@@ -96,6 +96,12 @@ const Register = () => {
                 }, 600);
 
         } catch (error) {
+            toast({
+                status:"error",
+                title : error.message,
+                isClosable : true , 
+                duration: 6000,
+            })
             setError(error.message);
         } finally {
             setLoading(false);
