@@ -44,7 +44,6 @@ const Login = () => {
           isClosable : true 
         })
         throw new Error(data.message || "Login failed, please try again.");
-
       }
       if(response.ok){
         toast({
@@ -53,7 +52,6 @@ const Login = () => {
           status : "success"
         })
         setSuccess("Login Successful!");
-        navigator.vibrate(500);
       }
       localStorage.setItem("token", data.token);
 
